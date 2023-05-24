@@ -24,12 +24,6 @@ const db = mysql.createConnection({
 	password: process.env.DB_PASSWORD,
 	database: process.env.DB_NAME,
 });
-// const db = mysql.createConnection({
-// 	user: "root",
-// 	host: "localhost",
-// 	password: "moz@119!",
-// 	database: "hemocelldb",
-// });
 
 // db.connect(function (err) {
 // 	if (err) {
