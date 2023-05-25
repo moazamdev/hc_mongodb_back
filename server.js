@@ -136,15 +136,15 @@ app.post("/create-need-help", (req, res) => {
 	);
 });
 
-// app.get("/get", (req, res) => {
-// 	db.query("SELECT * FROM employees", (err, result) => {
-// 		if (err) {
-// 			console.log(err);
-// 		} else {
-// 			res.send(result);
-// 		}
-// 	});
-// });
+app.get("/api/donate-blood", (req, res) => {
+	db.query("SELECT * FROM donate_blood", (err, result) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.send(result);
+		}
+	});
+});
 
 app.get("/", (req, res) => res.send("Welocome to HemoCell!"));
 
