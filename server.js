@@ -34,6 +34,8 @@ const db = mysql.createConnection({
 // 	}
 // });
 
+// INSERTING QURIES
+
 // for inserting DONATE BLOOD page form data
 app.post("/create-donate-blood", (req, res) => {
 	const name = req.body.name;
@@ -136,6 +138,9 @@ app.post("/create-need-help", (req, res) => {
 	);
 });
 
+// SELECTING QURIES
+
+// for getting DONATE BLOOD table data
 app.get("/api/donate-blood", (req, res) => {
 	db.query("SELECT * FROM donate_blood", (err, result) => {
 		if (err) {
@@ -146,32 +151,99 @@ app.get("/api/donate-blood", (req, res) => {
 	});
 });
 
-// app.put("/api/donate-blood/:id", async (req, res) => {
-// 	try {
-// 		const { id } = req.params;
-// 		const { donated } = req.body;
+// for getting NEED BLOOD table data
+app.get("/api/need-blood", (req, res) => {
+	db.query("SELECT * FROM need_blood", (err, result) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.send(result);
+		}
+	});
+});
 
-// 		const updateQuery = "UPDATE donate_blood SET donated = ? WHERE id = ?";
-// 		const updateParams = [donated, id];
+// for getting HOST BLOOD DRIVE table data
+app.get("/api/host-blood-drive", (req, res) => {
+	db.query("SELECT * FROM host_blood_drive", (err, result) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.send(result);
+		}
+	});
+});
 
-// 		await db.query(updateQuery, updateParams);
+// for getting NEED HELP table data
+app.get("/api/need-help", (req, res) => {
+	db.query("SELECT * FROM need_help", (err, result) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.send(result);
+		}
+	});
+});
 
-// 		res.status(200).json({
-// 			message: "Donated status updated successfully",
-// 		});
-// 	} catch (error) {
-// 		res.status(500).json({ message: "Error updating donated status" });
-// 	}
-// });
+// UPDATING QURIES
 
+// for updating DONATE BLOOD table `donated` value
 app.put("/api/donate-blood/donated", (req, res) => {
 	const id = parseInt(req.body.id);
 	const donated = req.body.status;
-	console.log(donated);
-	console.log(typeof donated);
 	db.query(
 		"UPDATE donate_blood SET donated = ? where id = ?",
 		[donated, id],
+		(err, result) => {
+			if (err) {
+				console.log(err);
+			} else {
+				res.send(result);
+			}
+		}
+	);
+});
+
+// for updating NEED BLOOD table `given` value
+app.put("/api/need-blood/given", (req, res) => {
+	const id = parseInt(req.body.id);
+	const given = req.body.status;
+	db.query(
+		"UPDATE need_blood SET given = ? where id = ?",
+		[given, id],
+		(err, result) => {
+			if (err) {
+				console.log(err);
+			} else {
+				res.send(result);
+			}
+		}
+	);
+});
+
+// for updating HOST BLOOD DRIVE table `done` value
+app.put("/api/host-blood-drive/done", (req, res) => {
+	const id = parseInt(req.body.id);
+	const done = req.body.status;
+	db.query(
+		"UPDATE host_blood_drive SET done = ? where id = ?",
+		[done, id],
+		(err, result) => {
+			if (err) {
+				console.log(err);
+			} else {
+				res.send(result);
+			}
+		}
+	);
+});
+
+// for updating NEED HELP table `answered` value
+app.put("/api/need-help/answered", (req, res) => {
+	const id = parseInt(req.body.id);
+	const answered = req.body.status;
+	db.query(
+		"UPDATE need_help SET answered = ? where id = ?",
+		[answered, id],
 		(err, result) => {
 			if (err) {
 				console.log(err);
