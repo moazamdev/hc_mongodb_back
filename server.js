@@ -146,6 +146,42 @@ app.get("/api/donate-blood", (req, res) => {
 	});
 });
 
+// app.put("/api/donate-blood/:id", async (req, res) => {
+// 	try {
+// 		const { id } = req.params;
+// 		const { donated } = req.body;
+
+// 		const updateQuery = "UPDATE donate_blood SET donated = ? WHERE id = ?";
+// 		const updateParams = [donated, id];
+
+// 		await db.query(updateQuery, updateParams);
+
+// 		res.status(200).json({
+// 			message: "Donated status updated successfully",
+// 		});
+// 	} catch (error) {
+// 		res.status(500).json({ message: "Error updating donated status" });
+// 	}
+// });
+
+app.put("/api/donate-blood/donated", (req, res) => {
+	const id = parseInt(req.body.id);
+	const donated = req.body.status;
+	console.log(donated);
+	console.log(typeof donated);
+	db.query(
+		"UPDATE donate_blood SET donated = ? where id = ?",
+		[donated, id],
+		(err, result) => {
+			if (err) {
+				console.log(err);
+			} else {
+				res.send(result);
+			}
+		}
+	);
+});
+
 app.get("/", (req, res) => res.send("Welocome to HemoCell!"));
 
 app.listen(port, () => console.log(`Yee! app listening on port ${port}!`));
