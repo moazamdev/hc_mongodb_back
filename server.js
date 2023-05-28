@@ -34,7 +34,7 @@ const db = mysql.createConnection({
 // 	}
 // });
 
-// INSERTING QURIES
+// INSERTING QUERIES
 
 // for inserting DONATE BLOOD page form data
 app.post("/create-donate-blood", (req, res) => {
@@ -138,7 +138,7 @@ app.post("/create-need-help", (req, res) => {
 	);
 });
 
-// SELECTING QURIES
+// SELECTING QUERIES
 
 // for getting DONATE BLOOD table data
 app.get("/api/donate-blood", (req, res) => {
@@ -184,7 +184,7 @@ app.get("/api/need-help", (req, res) => {
 	});
 });
 
-// UPDATING QURIES
+// UPDATING QUERIES
 
 // for updating DONATE BLOOD table `donated` value
 app.put("/api/donate-blood/donated", (req, res) => {
@@ -252,6 +252,19 @@ app.put("/api/need-help/answered", (req, res) => {
 			}
 		}
 	);
+});
+
+// DELETING QUERIES
+
+app.delete("/api/donate-blood/delete/:id", (req, res) => {
+	const id = parseInt(req.params.id);
+	db.query("DELETE FROM donate_blood WHERE id = ?", id, (err, result) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.send(result);
+		}
+	});
 });
 
 app.get("/", (req, res) => res.send("Welocome to HemoCell!"));
