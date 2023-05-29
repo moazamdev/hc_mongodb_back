@@ -308,13 +308,13 @@ app.put("/api/host-blood-drive/update/:id", (req, res) => {
 	);
 });
 
-// for updating DONATE BLOOD table data
-app.put("/api/donate-blood/update/:id", (req, res) => {
+// for updating NEED HELP table data
+app.put("/api/need-help/update/:id", (req, res) => {
 	const id = parseInt(req.params.id);
-	const { name, phone, bloodType, message } = req.body.updatedData;
+	const { name, phone, reason, message } = req.body.updatedData;
 	db.query(
-		"UPDATE donate_blood SET name = ?, phone = ?, bloodType = ?, message = ? WHERE id = ?",
-		[name, phone, bloodType, message, id],
+		"UPDATE need_help SET name = ?, phone = ?, reason = ?, message = ? WHERE id = ?",
+		[name, phone, reason, message, id],
 		(err, result) => {
 			if (err) {
 				console.log(err);
