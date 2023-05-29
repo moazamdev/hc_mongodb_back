@@ -254,11 +254,119 @@ app.put("/api/need-help/answered", (req, res) => {
 	);
 });
 
+// UPDATING QUERIES FOR UPDATING RECORDS
+
+// for updating DONATE BLOOD table data
+app.put("/api/donate-blood/update/:id", (req, res) => {
+	const id = parseInt(req.params.id);
+	const { name, phone, bloodType, message } = req.body.updatedData;
+	db.query(
+		"UPDATE donate_blood SET name = ?, phone = ?, bloodType = ?, message = ? WHERE id = ?",
+		[name, phone, bloodType, message, id],
+		(err, result) => {
+			if (err) {
+				console.log(err);
+			} else {
+				res.send(result);
+			}
+		}
+	);
+});
+
+// for updating NEED BLOOD table data
+app.put("/api/need-blood/update/:id", (req, res) => {
+	const id = parseInt(req.params.id);
+	const { name, phone, bloodType, message } = req.body.updatedData;
+	db.query(
+		"UPDATE need_blood SET name = ?, phone = ?, bloodType = ?, message = ? WHERE id = ?",
+		[name, phone, bloodType, message, id],
+		(err, result) => {
+			if (err) {
+				console.log(err);
+			} else {
+				res.send(result);
+			}
+		}
+	);
+});
+
+// for updating HOST BLOOD DRIVE table data
+app.put("/api/host-blood-drive/update/:id", (req, res) => {
+	const id = parseInt(req.params.id);
+	const { name, phone, institute, designation, city, message } =
+		req.body.updatedData;
+	db.query(
+		"UPDATE host_blood_drive SET name = ?, phone = ?, institute = ?, designation = ?, city = ?, message = ? WHERE id = ?",
+		[name, phone, institute, designation, city, message, id],
+		(err, result) => {
+			if (err) {
+				console.log(err);
+			} else {
+				res.send(result);
+			}
+		}
+	);
+});
+
+// for updating DONATE BLOOD table data
+app.put("/api/donate-blood/update/:id", (req, res) => {
+	const id = parseInt(req.params.id);
+	const { name, phone, bloodType, message } = req.body.updatedData;
+	db.query(
+		"UPDATE donate_blood SET name = ?, phone = ?, bloodType = ?, message = ? WHERE id = ?",
+		[name, phone, bloodType, message, id],
+		(err, result) => {
+			if (err) {
+				console.log(err);
+			} else {
+				res.send(result);
+			}
+		}
+	);
+});
+
 // DELETING QUERIES
 
+// for deleting DONATE BLOOD table data
 app.delete("/api/donate-blood/delete/:id", (req, res) => {
 	const id = parseInt(req.params.id);
 	db.query("DELETE FROM donate_blood WHERE id = ?", id, (err, result) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.send(result);
+		}
+	});
+});
+
+// for deleting NEED BLOOD table data
+app.delete("/api/need-blood/delete/:id", (req, res) => {
+	const id = parseInt(req.params.id);
+	db.query("DELETE FROM need_blood WHERE id = ?", id, (err, result) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.send(result);
+		}
+	});
+});
+
+// for deleting HOST BLOOD DRIVE table data
+app.delete("/api/host-blood-drive/delete/:id", (req, res) => {
+	const id = parseInt(req.params.id);
+	db.query("DELETE FROM host_blood_drive WHERE id = ?", id, (err, result) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.send(result);
+		}
+	});
+});
+
+// for deleting NEED HELP table data
+app.delete("/api/need-help/delete/:id", (req, res) => {
+	const id = parseInt(req.params.id);
+	db.query("DELETE FROM need_help WHERE id = ?", id, (err, result) => {
 		if (err) {
 			console.log(err);
 		} else {
