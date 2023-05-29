@@ -140,6 +140,17 @@ app.post("/create-need-help", (req, res) => {
 
 // SELECTING QUERIES
 
+// for getting NEW USERS table data
+app.get("/api/dashboard", (req, res) => {
+	db.query("SELECT * FROM new_users", (err, result) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.send(result);
+		}
+	});
+});
+
 // for getting DONATE BLOOD table data
 app.get("/api/donate-blood", (req, res) => {
 	db.query("SELECT * FROM donate_blood", (err, result) => {
@@ -367,6 +378,18 @@ app.delete("/api/host-blood-drive/delete/:id", (req, res) => {
 app.delete("/api/need-help/delete/:id", (req, res) => {
 	const id = parseInt(req.params.id);
 	db.query("DELETE FROM need_help WHERE id = ?", id, (err, result) => {
+		if (err) {
+			console.log(err);
+		} else {
+			res.send(result);
+		}
+	});
+});
+
+// for deleting NEW USERS table data
+app.delete("/api/dashboard/delete/:id", (req, res) => {
+	const id = parseInt(req.params.id);
+	db.query("DELETE FROM new_users WHERE id = ?", id, (err, result) => {
 		if (err) {
 			console.log(err);
 		} else {
