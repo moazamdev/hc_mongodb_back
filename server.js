@@ -138,6 +138,33 @@ app.post("/create-need-help", (req, res) => {
 	);
 });
 
+// INSERINTG IN NEW_USERS TABLE
+
+// for inserting NEED HELP page form data
+app.post("/insert-new-users", (req, res) => {
+	const name = req.body.name;
+	const phone = req.body.phone;
+	const email = req.body.email;
+	const date = req.body.date;
+	const source = req.body.source;
+
+	// console.log(name);
+
+	db.query(
+		"INSERT INTO new_users (name, email, phone, date, source) VALUES (?,?,?,?,?)",
+		[name, email, phone, date, source],
+		(err, result) => {
+			if (err) {
+				console.log(err);
+				// res.status(500).send("Error inserting data");
+			} else {
+				console.log(result);
+				res.send("Values Inserted");
+			}
+		}
+	);
+});
+
 // SELECTING QUERIES
 
 // for getting NEW USERS table data
