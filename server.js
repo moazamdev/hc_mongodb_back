@@ -292,6 +292,23 @@ app.put("/api/need-help/answered", (req, res) => {
 	);
 });
 
+// for updating NEW USERS table `checked` value
+app.put("/api/new-users/checked", (req, res) => {
+	const id = parseInt(req.body.id);
+	const checked = req.body.status;
+	db.query(
+		"UPDATE new_users SET checked = ? where id = ?",
+		[checked, id],
+		(err, result) => {
+			if (err) {
+				console.log(err);
+			} else {
+				res.send(result);
+			}
+		}
+	);
+});
+
 // UPDATING QUERIES FOR UPDATING RECORDS
 
 // for updating DONATE BLOOD table data
