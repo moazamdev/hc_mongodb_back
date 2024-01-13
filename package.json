@@ -2,6 +2,7 @@
 	"name": "hemocell-backend",
 	"description": "backend for managing hemocell",
 	"version": "1.0.0",
+	"type": "module",
 	"main": "server.js",
 	"scripts": {
 		"start": "node server.js",
@@ -14,6 +15,8 @@
 		"express": "^4.18.2",
 		"express-rate-limit": "^6.7.0",
 		"helmet": "^7.0.0",
+		"mongodb": "6.3",
+		"mongoose": "^8.0.3",
 		"mysql": "^2.18.1"
 	},
 	"devDependencies": {
