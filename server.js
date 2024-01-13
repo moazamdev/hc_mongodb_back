@@ -351,164 +351,184 @@ app.put("/api/new-users/checked", async (req, res) => {
 		console.log(err);
 	}
 });
-// // for updating NEW USERS table `checked` value
-// app.put("/api/new-users/checked", async (req, res) => {
-// 	const id = req.body.id;
-// 	const checked = req.body.status;
-// 	try {
-// 		// Fetch the document with the matching _id
-// 		const user = await NewUsers.findById(id);
 
-// 		// Check if the document exists
-// 		if (!user) {
-// 			return res.status(404).send({ message: "User not found" });
-// 		}
-
-// 		// Update the document
-// 		const updatedUser = await NewUsers.findOneAndUpdate(
-// 			id,
-// 			{ checked },
-// 			{ new: true }
-// 		);
-
-// 		res.send(updatedUser);
-// 	} catch (err) {
-// 		console.log(err);
-// 	}
-// });
+// ========================================
 
 // // UPDATING QUERIES FOR UPDATING RECORDS
 
-// // for updating DONATE BLOOD table data
-// app.put("/api/donate-blood/update/:id", (req, res) => {
-// 	const id = parseInt(req.params.id);
-// 	const { name, phone, bloodType, message } = req.body.updatedData;
-// 	db.query(
-// 		"UPDATE donate_blood SET name = ?, phone = ?, bloodType = ?, message = ? WHERE id = ?",
-// 		[name, phone, bloodType, message, id],
-// 		(err, result) => {
-// 			if (err) {
-// 				console.log(err);
-// 			} else {
-// 				res.send(result);
-// 			}
-// 		}
-// 	);
-// });
+// for updating DONATE BLOOD table data
+app.put("/api/donate-blood/update/:id", async (req, res) => {
+	const id = req.params.id;
+	const { name, phone, email, bloodType, message } = req.body.updatedData;
 
-// // for updating NEED BLOOD table data
-// app.put("/api/need-blood/update/:id", (req, res) => {
-// 	const id = parseInt(req.params.id);
-// 	const { name, phone, bloodType, message } = req.body.updatedData;
-// 	db.query(
-// 		"UPDATE need_blood SET name = ?, phone = ?, bloodType = ?, message = ? WHERE id = ?",
-// 		[name, phone, bloodType, message, id],
-// 		(err, result) => {
-// 			if (err) {
-// 				console.log(err);
-// 			} else {
-// 				res.send(result);
-// 			}
-// 		}
-// 	);
-// });
+	try {
+		const result = await DonateBlood.findOneAndUpdate(
+			{
+				_id: new ObjectId(id),
+			},
+			{ $set: { name, phone, email, bloodType, message } },
+			{ new: true }
+		);
 
-// // for updating HOST BLOOD DRIVE table data
-// app.put("/api/host-blood-drive/update/:id", (req, res) => {
-// 	const id = parseInt(req.params.id);
-// 	const { name, phone, institute, designation, city, message } =
-// 		req.body.updatedData;
-// 	db.query(
-// 		"UPDATE host_blood_drive SET name = ?, phone = ?, institute = ?, designation = ?, city = ?, message = ? WHERE id = ?",
-// 		[name, phone, institute, designation, city, message, id],
-// 		(err, result) => {
-// 			if (err) {
-// 				console.log(err);
-// 			} else {
-// 				res.send(result);
-// 			}
-// 		}
-// 	);
-// });
+		res.send(result);
+	} catch (err) {
+		console.log(err);
+		res.status(500).send("Internal Server Error");
+	}
+});
 
-// // for updating NEED HELP table data
-// app.put("/api/need-help/update/:id", (req, res) => {
-// 	const id = parseInt(req.params.id);
-// 	const { name, phone, reason, message } = req.body.updatedData;
-// 	db.query(
-// 		"UPDATE need_help SET name = ?, phone = ?, reason = ?, message = ? WHERE id = ?",
-// 		[name, phone, reason, message, id],
-// 		(err, result) => {
-// 			if (err) {
-// 				console.log(err);
-// 			} else {
-// 				res.send(result);
-// 			}
-// 		}
-// 	);
-// });
+// for updating NEED BLOOD table data
+app.put("/api/need-blood/update/:id", async (req, res) => {
+	const id = req.params.id;
+	const { name, phone, bloodType, message } = req.body.updatedData;
+
+	try {
+		const result = await NeedBlood.findOneAndUpdate(
+			{
+				_id: new ObjectId(id),
+			},
+			{ $set: { name, phone, email, bloodType, message } },
+			{ new: true }
+		);
+
+		res.send(result);
+	} catch (err) {
+		console.log(err);
+		res.status(500).send("Internal Server Error");
+	}
+});
+
+// for updating HOST BLOOD DRIVE table data
+app.put("/api/host-blood-drive/update/:id", async (req, res) => {
+	const id = req.params.id;
+	const { name, phone, institute, designation, city, message } =
+		req.body.updatedData;
+
+	try {
+		const result = await HostBloodDrive.findOneAndUpdate(
+			{
+				_id: new ObjectId(id),
+			},
+			{ $set: { name, phone, institute, designation, city, message } },
+			{ new: true }
+		);
+
+		res.send(result);
+	} catch (err) {
+		console.log(err);
+		res.status(500).send("Internal Server Error");
+	}
+});
+
+// for updating NEED HELP table data
+app.put("/api/need-help/update/:id", async (req, res) => {
+	const id = req.params.id;
+	const { name, phone, reason, message } = req.body.updatedData;
+
+	try {
+		const result = await NeedHelp.findOneAndUpdate(
+			{
+				_id: new ObjectId(id),
+			},
+			{ $set: { name, phone, reason, message } },
+			{ new: true }
+		);
+
+		res.send(result);
+	} catch (err) {
+		console.log(err);
+		res.status(500).send("Internal Server Error");
+	}
+});
+
+// ========================================
 
 // // DELETING QUERIES
 
-// // for deleting DONATE BLOOD table data
-// app.delete("/api/donate-blood/delete/:id", (req, res) => {
-// 	const id = parseInt(req.params.id);
-// 	db.query("DELETE FROM donate_blood WHERE id = ?", id, (err, result) => {
-// 		if (err) {
-// 			console.log(err);
-// 		} else {
-// 			res.send(result);
-// 		}
-// 	});
-// });
+// for deleting DONATE BLOOD table data
+app.delete("/api/donate-blood/delete/:id", async (req, res) => {
+	const id = req.params.id;
 
-// // for deleting NEED BLOOD table data
-// app.delete("/api/need-blood/delete/:id", (req, res) => {
-// 	const id = parseInt(req.params.id);
-// 	db.query("DELETE FROM need_blood WHERE id = ?", id, (err, result) => {
-// 		if (err) {
-// 			console.log(err);
-// 		} else {
-// 			res.send(result);
-// 		}
-// 	});
-// });
+	try {
+		const result = await DonateBlood.findOneAndDelete({
+			_id: new ObjectId(id),
+		});
 
-// // for deleting HOST BLOOD DRIVE table data
-// app.delete("/api/host-blood-drive/delete/:id", (req, res) => {
-// 	const id = parseInt(req.params.id);
-// 	db.query("DELETE FROM host_blood_drive WHERE id = ?", id, (err, result) => {
-// 		if (err) {
-// 			console.log(err);
-// 		} else {
-// 			res.send(result);
-// 		}
-// 	});
-// });
+		if (result) res.send(result);
+		else res.status(404).send("Not Found");
+	} catch (err) {
+		console.log(err);
+		res.status(500).send("Internal Server Error");
+	}
+});
 
-// // for deleting NEED HELP table data
-// app.delete("/api/need-help/delete/:id", (req, res) => {
-// 	const id = parseInt(req.params.id);
-// 	db.query("DELETE FROM need_help WHERE id = ?", id, (err, result) => {
-// 		if (err) {
-// 			console.log(err);
-// 		} else {
-// 			res.send(result);
-// 		}
-// 	});
-// });
+// for deleting NEED BLOOD table data
+app.delete("/api/need-blood/delete/:id", async (req, res) => {
+	const id = req.params.id;
 
-// // for deleting NEW USERS table data
-// app.delete("/api/dashboard/delete/:id", (req, res) => {
-// 	const id = parseInt(req.params.id);
-// 	db.query("DELETE FROM new_users WHERE id = ?", id, (err, result) => {
-// 		if (err) {
-// 			console.log(err);
-// 		} else {
-// 			res.send(result);
-// 		}
-// 	});
-// });
+	try {
+		const result = await NeedBlood.findOneAndDelete({
+			_id: new ObjectId(id),
+		});
+
+		if (result) res.send(result);
+		else res.status(404).send("Not Found");
+	} catch (err) {
+		console.log(err);
+		res.status(500).send("Internal Server Error");
+	}
+});
+
+// for deleting HOST BLOOD DRIVE table data
+app.delete("/api/host-blood-drive/delete/:id", async (req, res) => {
+	const id = req.params.id;
+
+	try {
+		const result = await HostBloodDrive.findOneAndDelete({
+			_id: new ObjectId(id),
+		});
+
+		if (result) res.send(result);
+		else res.status(404).send("Not Found");
+	} catch (err) {
+		console.log(err);
+		res.status(500).send("Internal Server Error");
+	}
+});
+
+// for deleting NEED HELP table data
+app.delete("/api/need-help/delete/:id", async (req, res) => {
+	const id = req.params.id;
+
+	try {
+		const result = await NeedHelp.findOneAndDelete({
+			_id: new ObjectId(id),
+		});
+
+		if (result) res.send(result);
+		else res.status(404).send("Not Found");
+	} catch (err) {
+		console.log(err);
+		res.status(500).send("Internal Server Error");
+	}
+});
+
+// for deleting NEW USERS table data
+app.delete("/api/dashboard/delete/:id", async (req, res) => {
+	const id = req.params.id;
+
+	try {
+		const result = await NewUsers.findOneAndDelete({
+			_id: new ObjectId(id),
+		});
+
+		if (result) res.send(result);
+		else res.status(404).send("Not Found");
+	} catch (err) {
+		console.log(err);
+		res.status(500).send("Internal Server Error");
+	}
+});
 
 app.get("/", (req, res) => res.send("Welocome to HemoCell!"));
 
