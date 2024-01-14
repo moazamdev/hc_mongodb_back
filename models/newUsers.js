@@ -4,7 +4,7 @@ const { Schema, model } = mongoose;
 // New Users schema and model
 const NewUsersSchema = new Schema({
 	name: { type: String, required: true },
-	email: { type: String, required: true, unique: true },
+	email: { type: String, required: true },
 	phone: { type: String, required: true },
 	source: { type: String, required: true },
 	checked: { type: Boolean, default: false },

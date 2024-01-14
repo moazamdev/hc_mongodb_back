@@ -5,7 +5,7 @@ const { Schema, model } = mongoose;
 const DonateBloodSchema = new Schema({
 	name: { type: String, required: true },
 	phone: { type: String, required: true },
-	email: { type: String, required: true, unique: true },
+	email: { type: String, required: true },
 	bloodType: { type: String, required: true },
 	donated: { type: Boolean, default: false },
 	message: { type: String },

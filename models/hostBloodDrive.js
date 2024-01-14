@@ -5,7 +5,7 @@ const { Schema, model } = mongoose;
 const HostBloodDriveSchema = new Schema({
 	name: { type: String, required: true },
 	phone: { type: String, required: true },
-	email: { type: String, required: true, unique: true },
+	email: { type: String, required: true },
 	institute: { type: String, required: true },
 	designation: { type: String, required: true },
 	city: { type: String, required: true },
